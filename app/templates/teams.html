@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>F1 Racing - Teams</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="https://logodownload.org/wp-content/uploads/2016/11/formula-1-logo-5.png" alt="F1 Logo" class="f1-logo">
+        </div>
+        <nav class="main-nav">
+            <a href="/"><i class="fas fa-home"></i> Home</a>
+            <a href="/races"><i class="fas fa-flag-checkered"></i> Races</a>
+            <a href="/drivers"><i class="fas fa-user-helmet"></i> Drivers</a>
+            <a href="/teams" class="active"><i class="fas fa-users"></i> Teams</a>
+        </nav>
+        <div class="right-logo-container">
+            <img src="https://logodownload.org/wp-content/uploads/2016/11/formula-1-logo-5.png" alt="F1 Logo" class="right-f1-logo">
+        </div>
+    </header>
+
+    <div class="page-box">
+        <h1>Formula 1 Teams</h1>
+        <p class="page-description">Explore the current Formula 1 teams competing in the championship.</p>
+        
+        <div class="teams-container">
+            {% for team in teams %}
+            <div class="team-card">
+                <div class="team-header {{ team.color }}">
+                    <h2>{{ team.name }}</h2>
+                </div>
+                <div class="team-content">
+                    <div class="team-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">{{ team.points }}</span>
+                            <span class="stat-label">Points</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">{{ team.wins }}</span>
+                            <span class="stat-label">Wins</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">{{ loop.index }}</span>
+                            <span class="stat-label">Position</span>
+                        </div>
+                    </div>
+                    <div class="team-car">
+                        {% if team.color == 'ferrari' %}
+                        <img src="https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/ferrari.png.transform/4col/image.png" alt="{{ team.name }} car">
+                        {% elif team.color == 'mercedes' %}
+                        <img src="https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/mercedes.png.transform/4col/image.png" alt="{{ team.name }} car">
+                        {% elif team.color == 'redbull' %}
+                        <img src="https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/red-bull-racing.png.transform/4col/image.png" alt="{{ team.name }} car">
+                        {% elif team.color == 'mclaren' %}
+                        <img src="https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/mclaren.png.transform/4col/image.png" alt="{{ team.name }} car">
+                        {% elif team.color == 'aston' %}
+                        <img src="https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/aston-martin.png.transform/4col/image.png" alt="{{ team.name }} car">
+                        {% else %}
+                        <img src="https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/alphatauri.png.transform/4col/image.png" alt="{{ team.name }} car">
+                        {% endif %}
+                    </div>
+                    <a href="/teams/{{ team.id }}" class="team-details-btn">Team Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="teams-info-section">
+            <h2>About Formula 1 Teams</h2>
+            <p>Formula 1 teams are the backbone of the sport, each bringing their unique engineering expertise and racing heritage to the grid. Each team designs and builds their own cars within the regulations set by the FIA, competing for both the Drivers' and Constructors' Championships.</p>
+            
+            <div class="teams-facts">
+                <div class="fact-card">
+                    <i class="fas fa-users fact-icon"></i>
+                    <h3>Team Structure</h3>
+                    <p>F1 teams employ hundreds of staff across various departments including aerodynamics, mechanics, strategy, and operations.</p>
+                </div>
+                <div class="fact-card">
+                    <i class="fas fa-money-bill-wave fact-icon"></i>
+                    <h3>Budget Cap</h3>
+                    <p>Since 2021, F1 teams operate under a cost cap to level the playing field and make the sport more sustainable.</p>
+                </div>
+                <div class="fact-card">
+                    <i class="fas fa-cogs fact-icon"></i>
+                    <h3>Development</h3>
+                    <p>Teams continuously develop their cars throughout the season, bringing upgrades to improve performance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://logodownload.org/wp-content/uploads/2016/11/formula-1-logo-5.png" alt="F1 Logo" class="footer-f1-logo">
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Racing</h4>
+                    <a href="/races">Schedule</a>
+                    <a href="/races">Results</a>
+                    <a href="/standings">Standings</a>
+                    <a href="/drivers">Driver Stats</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Media</h4>
+                    <a href="#">Videos</a>
+                    <a href="#">Photos</a>
+                </div>
+                <div class="footer-column">
+                    <h4>About</h4>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+            </div>
+            <div class="footer-social">
+                <h4>Follow F1</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Formula 1 Racing App. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+</body>
+</html>

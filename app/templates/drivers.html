@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>F1 Racing - Drivers</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="https://logodownload.org/wp-content/uploads/2016/11/formula-1-logo-5.png" alt="F1 Logo" class="f1-logo">
+        </div>
+        <nav class="main-nav">
+            <a href="/"><i class="fas fa-home"></i> Home</a>
+            <a href="/races"><i class="fas fa-flag-checkered"></i> Races</a>
+            <a href="/drivers" class="active"><i class="fas fa-user-helmet"></i> Drivers</a>
+            <a href="/teams"><i class="fas fa-users"></i> Teams</a>
+        </nav>
+        <div class="right-logo-container">
+            <img src="https://logodownload.org/wp-content/uploads/2016/11/formula-1-logo-5.png" alt="F1 Logo" class="right-f1-logo">
+        </div>
+    </header>
+
+    <div class="page-box">
+        <h1>Formula 1 Drivers</h1>
+        <p class="page-description">Meet the talented drivers competing in this season's Formula 1 Championship.</p>
+        
+        <div class="drivers-standings">
+            <h2>Driver Standings</h2>
+            <table class="standings-table full-width">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Driver</th>
+                        <th>Team</th>
+                        <th>Points</th>
+                        <th>Wins</th>
+                        <th>Podiums</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for driver in drivers %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <div class="driver-name">
+                                <span class="driver-circle {{ driver.team_color }}">{{ driver.code }}</span>
+                                <a href="/drivers/{{ driver.id }}">{{ driver.name }}</a>
+                            </div>
+                        </td>
+                        <td><span class="team-name {{ driver.team_color }}">{{ driver.team }}</span></td>
+                        <td>{{ driver.points }}</td>
+                        <td>{{ driver.wins }}</td>
+                        <td>{{ driver.podiums }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="drivers-grid">
+            <h2>Driver Cards</h2>
+            <div class="driver-cards-container">
+                {% for driver in drivers %}
+                <div class="driver-card">
+                    <div class="driver-card-header {{ driver.team_color }}">
+                        <span class="driver-number">
+                            {% if driver.code == 'VER' %}1
+                            {% elif driver.code == 'LEC' %}16
+                            {% elif driver.code == 'NOR' %}4
+                            {% elif driver.code == 'HAM' %}44
+                            {% elif driver.code == 'SAI' %}55
+                            {% elif driver.code == 'RUS' %}63
+                            {% elif driver.code == 'PER' %}11
+                            {% elif driver.code == 'ALO' %}14
+                            {% else %}{{ loop.index }}{% endif %}
+                        </span>
+                    </div>
+                    <div class="driver-card-image">
+                        {% if driver.code == 'VER' %}
+                        <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/2col/image.png" alt="{{ driver.name }}">
+                        {% elif driver.code == 'LEC' %}
+                        <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png.transform/2col/image.png" alt="{{ driver.name }}">
+                        {% elif driver.code == 'HAM' %}
+                        <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png.transform/2col/image.png" alt="{{ driver.name }}">
+                        {% elif driver.code == 'NOR' %}
+                        <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png.transform/2col/image.png" alt="{{ driver.name }}">
+                        {% elif driver.code == 'SAI' %}
+                        <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png.transform/2col/image.png" alt="{{ driver.name }}">
+                        {% elif driver.code == 'RUS' %}
+                        <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GEORUS01_George_Russell/georus01.png.transform/2col/image.png" alt="{{ driver.name }}">
+                        {% elif driver.code == 'PER' %}
+                        <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/S/SERPER01_Sergio_Perez/serper01.png.transform/2col/image.png" alt="{{ driver.name }}">
+                        {% elif driver.code == 'ALO' %}
+                        <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png.transform/2col/image.png" alt="{{ driver.name }}">
+                        {% else %}
+                        <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/2023Drivers/albon.png.transform/2col/image.png" alt="{{ driver.name }}">
+                        {% endif %}
+                    </div>
+                    <div class="driver-card-content">
+                        <h3>{{ driver.name }}</h3>
+                        <p class="driver-team {{ driver.team_color }}">{{ driver.team }}</p>
+                        <div class="driver-stats">
+                            <div class="driver-stat">
+                                <span class="stat-value">{{ driver.points }}</span>
+                                <span class="stat-label">PTS</span>
+                            </div>
+                            <div class="driver-stat">
+                                <span class="stat-value">{{ driver.wins }}</span>
+                                <span class="stat-label">WINS</span>
+                            </div>
+                            <div class="driver-stat">
+                                <span class="stat-value">{{ driver.podiums }}</span>
+                                <span class="stat-label">POD</span>
+                            </div>
+                        </div>
+                        <a href="/drivers/{{ driver.id }}" class="driver-details-btn">Driver Details</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="drivers-info-section">
+            <h2>About Formula 1 Drivers</h2>
+            <p>Formula 1 drivers are among the most skilled athletes in motorsport, combining lightning-fast reflexes, physical endurance, and technical knowledge. They compete at speeds exceeding 300 km/h and experience up to 6G of force in corners.</p>
+            
+            <div class="drivers-facts">
+                <div class="fact-card">
+                    <i class="fas fa-trophy fact-icon"></i>
+                    <h3>Championships</h3>
+                    <p>Lewis Hamilton and Michael Schumacher share the record for the most World Championships with seven titles each.</p>
+                </div>
+                <div class="fact-card">
+                    <i class="fas fa-tachometer-alt fact-icon"></i>
+                    <h3>Physical Demands</h3>
+                    <p>F1 drivers can lose up to 4kg of weight during a single race due to the extreme physical demands and cockpit temperatures.</p>
+                </div>
+                <div class="fact-card">
+                    <i class="fas fa-brain fact-icon"></i>
+                    <h3>Reaction Time</h3>
+                    <p>F1 drivers have reaction times of around 0.2 seconds, significantly faster than the average person's 0.5-0.7 seconds.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://logodownload.org/wp-content/uploads/2016/11/formula-1-logo-5.png" alt="F1 Logo" class="footer-f1-logo">
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Racing</h4>
+                    <a href="/races">Schedule</a>
+                    <a href="/races">Results</a>
+                    <a href="/standings">Standings</a>
+                    <a href="/drivers">Driver Stats</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Media</h4>
+                    <a href="#">Videos</a>
+                    <a href="#">Photos</a>
+                </div>
+                <div class="footer-column">
+                    <h4>About</h4>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+            </div>
+            <div class="footer-social">
+                <h4>Follow F1</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Formula 1 Racing App. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+</body>
+</html>

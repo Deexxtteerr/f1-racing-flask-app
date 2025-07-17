@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>F1 Racing - Races</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="https://logodownload.org/wp-content/uploads/2016/11/formula-1-logo-5.png" alt="F1 Logo" class="f1-logo">
+        </div>
+        <nav class="main-nav">
+            <a href="/"><i class="fas fa-home"></i> Home</a>
+            <a href="/races" class="active"><i class="fas fa-flag-checkered"></i> Races</a>
+            <a href="/drivers"><i class="fas fa-user-helmet"></i> Drivers</a>
+            <a href="/teams"><i class="fas fa-users"></i> Teams</a>
+        </nav>
+        <div class="right-logo-container">
+            <img src="https://logodownload.org/wp-content/uploads/2016/11/formula-1-logo-5.png" alt="F1 Logo" class="right-f1-logo">
+        </div>
+    </header>
+
+    <div class="page-box">
+        <h1>Formula 1 Race Calendar</h1>
+        <p class="page-description">Explore the complete Formula 1 race schedule and results for the current season.</p>
+        
+        <div class="race-tabs">
+            <button class="tab-button active" onclick="openTab('upcoming')">Upcoming Races</button>
+            <button class="tab-button" onclick="openTab('past')">Past Races</button>
+        </div>
+        
+        <div id="upcoming" class="tab-content active">
+            <h2>Upcoming Races</h2>
+            {% if upcoming_races %}
+            <div class="races-grid">
+                {% for race in upcoming_races %}
+                <div class="race-card">
+                    <div class="race-date">
+                        <span class="month">{{ race.date.split('-')[1] }}</span>
+                        <span class="day">{{ race.date.split('-')[2] }}</span>
+                    </div>
+                    <div class="race-info">
+                        <h3>{{ race.name }}</h3>
+                        <p class="race-circuit">{{ race.circuit }}</p>
+                        <p class="race-location"><i class="fas fa-map-marker-alt"></i> {{ race.location }}</p>
+                    </div>
+                    <div class="race-actions">
+                        <a href="/races/{{ race.id }}" class="race-details-btn">Race Details</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="no-races">
+                <i class="fas fa-calendar-times"></i>
+                <p>No upcoming races scheduled at this time.</p>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div id="past" class="tab-content">
+            <h2>Past Races</h2>
+            {% if past_races %}
+            <div class="races-grid">
+                {% for race in past_races %}
+                <div class="race-card completed">
+                    <div class="race-date">
+                        <span class="month">{{ race.date.split('-')[1] }}</span>
+                        <span class="day">{{ race.date.split('-')[2] }}</span>
+                    </div>
+                    <div class="race-info">
+                        <h3>{{ race.name }}</h3>
+                        <p class="race-circuit">{{ race.circuit }}</p>
+                        <p class="race-location"><i class="fas fa-map-marker-alt"></i> {{ race.location }}</p>
+                        <div class="race-winner">
+                            <span class="winner-label">Winner:</span>
+                            <span class="winner-name">{{ race.winner }}</span>
+                        </div>
+                    </div>
+                    <div class="race-actions">
+                        <a href="/races/{{ race.id }}" class="race-details-btn">Race Results</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="no-races">
+                <i class="fas fa-calendar-times"></i>
+                <p>No past races available.</p>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="race-calendar-section">
+            <h2>2025 Season Calendar</h2>
+            <div class="calendar-map">
+                <img src="https://www.formula1.com/content/dam/fom-website/2018-redesign-assets/maps/2023-season-map.png" alt="F1 2025 Season Calendar Map" class="world-map">
+                <div class="map-overlay">
+                    <div class="map-legend">
+                        <div class="legend-item">
+                            <span class="legend-dot completed"></span>
+                            <span>Completed Races</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot upcoming"></span>
+                            <span>Upcoming Races</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="calendar-info">
+                <h3>About the F1 Calendar</h3>
+                <p>The Formula 1 season typically consists of around 20-24 races held across different countries and continents. The calendar begins in March and concludes in December, with races usually held every two to three weeks.</p>
+                <p>Each race weekend consists of practice sessions on Friday, qualifying on Saturday, and the main race on Sunday. Points are awarded to the top 10 finishers in each race, with the driver and team with the most points at the end of the season crowned World Champions.</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://logodownload.org/wp-content/uploads/2016/11/formula-1-logo-5.png" alt="F1 Logo" class="footer-f1-logo">
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Racing</h4>
+                    <a href="/races">Schedule</a>
+                    <a href="/races">Results</a>
+                    <a href="/standings">Standings</a>
+                    <a href="/drivers">Driver Stats</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Media</h4>
+                    <a href="#">Videos</a>
+                    <a href="#">Photos</a>
+                </div>
+                <div class="footer-column">
+                    <h4>About</h4>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+            </div>
+            <div class="footer-social">
+                <h4>Follow F1</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Formula 1 Racing App. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+    
+    <script>
+        function openTab(tabName) {
+            // Hide all tab content
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            // Remove active class from all tab buttons
+            var tabButtons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+            
+            // Show the selected tab content and mark the button as active
+            document.getElementById(tabName).classList.add("active");
+            
+            // Find the button that corresponds to this tab and mark it as active
+            var buttons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < buttons.length; i++) {
+                if (buttons[i].textContent.toLowerCase().includes(tabName)) {
+                    buttons[i].classList.add("active");
+                }
+            }
+        }
+    </script>
+</body>
+</html>
