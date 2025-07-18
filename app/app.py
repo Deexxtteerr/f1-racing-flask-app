@@ -3,12 +3,12 @@ from datetime import datetime, timedelta
 import sqlite3
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 # Database setup
 DB_PATH = os.path.join(os.path.dirname(__file__), 'f1_app.db')
 
-def init_db():
+def init_database():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute('''
@@ -16,9 +16,11 @@ def init_db():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         email TEXT NOT NULL,
-        favorite_team TEXT NOT NULL,
-        favorite_driver TEXT NOT NULL,
-        race_winner TEXT NOT NULL,
+        phone TEXT,
+        favorite_team TEXT,
+        favorite_driver TEXT,
+        predicted_position INTEGER,
+        rating INTEGER,
         comments TEXT,
         submission_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
@@ -27,23 +29,7 @@ def init_db():
     conn.close()
 
 # Initialize database on startup
-init_db()
-
-# Helper function to get team CSS class
-def get_team_class(team_name):
-    team_classes = {
-        'Ferrari': 'ferrari',
-        'Mercedes': 'mercedes',
-        'Red Bull Racing': 'redbull',
-        'McLaren': 'mclaren',
-        'Aston Martin': 'aston',
-        'Alpine': 'alpine',
-        'Williams': 'williams',
-        'RB': 'rb',
-        'Haas': 'haas',
-        'Kick Sauber': 'sauber'
-    }
-    return team_classes.get(team_name, '')
+init_database()
 
 # Sample data for the application
 f1_data = {
@@ -81,6 +67,22 @@ f1_data = {
     ]
 }
 
+# Helper function to get team CSS class
+def get_team_class(team_name):
+    team_classes = {
+        'Ferrari': 'ferrari',
+        'Mercedes': 'mercedes',
+        'Red Bull Racing': 'redbull',
+        'McLaren': 'mclaren',
+        'Aston Martin': 'aston',
+        'Alpine': 'alpine',
+        'Williams': 'williams',
+        'RB': 'rb',
+        'Haas': 'haas',
+        'Kick Sauber': 'sauber'
+    }
+    return team_classes.get(team_name, '')
+
 # Helper function to get the next race
 def get_next_race():
     today = datetime.now().date()
@@ -108,11 +110,9 @@ def get_recent_predictions(limit=3):
     
     predictions = []
     for row in cursor.fetchall():
-        # Format the date nicely
         submission_date = datetime.strptime(row['submission_date'], '%Y-%m-%d %H:%M:%S')
         formatted_date = submission_date.strftime('%B %d, %Y')
         
-        # Get first name and last initial
         name_parts = row['name'].split()
         if len(name_parts) > 1:
             display_name = f"{name_parts[0]} {name_parts[-1][0]}."
@@ -124,7 +124,6 @@ def get_recent_predictions(limit=3):
             'date': formatted_date,
             'favorite_team': row['favorite_team'],
             'favorite_driver': row['favorite_driver'],
-            'race_winner': row['race_winner'],
             'comments': row['comments'],
             'team_class': get_team_class(row['favorite_team'])
         })
@@ -132,7 +131,15 @@ def get_recent_predictions(limit=3):
     conn.close()
     return predictions
 
+@app.context_processor
+def utility_processor():
+    return dict(request=request)
+
 @app.route('/')
+def root():
+    return redirect(url_for('home'))
+
+@app.route('/home')
 def home():
     next_race_info = get_next_race()
     top_drivers = sorted(f1_data['drivers'], key=lambda x: x['points'], reverse=True)[:5]
@@ -150,61 +157,57 @@ def submit_prediction():
     if request.method == 'POST':
         name = request.form.get('name')
         email = request.form.get('email')
+        phone = request.form.get('phone')
         favorite_team = request.form.get('favorite_team')
         favorite_driver = request.form.get('favorite_driver')
-        race_winner = request.form.get('race_winner')
+        predicted_position = request.form.get('predicted_position')
+        rating = request.form.get('rating')
         comments = request.form.get('comments')
         
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''
         INSERT INTO user_predictions 
-        (name, email, favorite_team, favorite_driver, race_winner, comments)
-        VALUES (?, ?, ?, ?, ?, ?)
-        ''', (name, email, favorite_team, favorite_driver, race_winner, comments))
+        (name, email, phone, favorite_team, favorite_driver, predicted_position, rating, comments)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (name, email, phone, favorite_team, favorite_driver, predicted_position, rating, comments))
         
         conn.commit()
         conn.close()
         
-        return redirect(url_for('home'))
+        return redirect(request.referrer or url_for('home'))
 
 @app.route('/teams')
 def teams():
     teams_data = sorted(f1_data['teams'], key=lambda x: x['points'], reverse=True)
-    return render_template('teams.html', teams=teams_data)
-
-@app.route('/teams/<int:team_id>')
-def team_detail(team_id):
-    team = next((t for t in f1_data['teams'] if t['id'] == team_id), None)
-    if team:
-        team_drivers = [d for d in f1_data['drivers'] if d['team'] == team['name']]
-        return render_template('team_detail.html', team=team, drivers=team_drivers)
-    return "Team not found", 404
+    drivers_data = f1_data['drivers']
+    return render_template('teams.html', teams=teams_data, drivers=drivers_data)
 
 @app.route('/drivers')
 def drivers():
     drivers_data = sorted(f1_data['drivers'], key=lambda x: x['points'], reverse=True)
     return render_template('drivers.html', drivers=drivers_data)
 
-@app.route('/drivers/<int:driver_id>')
-def driver_detail(driver_id):
-    driver = next((d for d in f1_data['drivers'] if d['id'] == driver_id), None)
-    if driver:
-        return render_template('driver_detail.html', driver=driver)
-    return "Driver not found", 404
-
 @app.route('/races')
 def races():
-    past_races = [race for race in f1_data['races'] if race['status'] == 'completed']
-    upcoming_races = [race for race in f1_data['races'] if race['status'] == 'upcoming']
-    return render_template('races.html', past_races=past_races, upcoming_races=upcoming_races)
-
-@app.route('/races/<int:race_id>')
-def race_detail(race_id):
-    race = next((r for r in f1_data['races'] if r['id'] == race_id), None)
-    if race:
-        return render_template('race_detail.html', race=race)
-    return "Race not found", 404
+    today = datetime.now().date()
+    past_races = []
+    upcoming_races = []
+    
+    for race in f1_data['races']:
+        race_date = datetime.strptime(race['date'], '%Y-%m-%d').date()
+        days_until = (race_date - today).days
+        race_with_countdown = race.copy()
+        race_with_countdown['days_until'] = days_until
+        
+        if race['status'] == 'completed':
+            past_races.append(race_with_countdown)
+        else:
+            upcoming_races.append(race_with_countdown)
+    
+    return render_template('races.html', 
+                         past_races=past_races, 
+                         upcoming_races=upcoming_races)
 
 @app.route('/standings')
 def standings():
@@ -212,20 +215,5 @@ def standings():
     teams_standings = sorted(f1_data['teams'], key=lambda x: x['points'], reverse=True)
     return render_template('standings.html', drivers=drivers_standings, teams=teams_standings)
 
-@app.route('/api/next-race')
-def api_next_race():
-    next_race_info = get_next_race()
-    return jsonify(next_race_info)
-
-@app.route('/api/standings/drivers')
-def api_drivers_standings():
-    drivers = sorted(f1_data['drivers'], key=lambda x: x['points'], reverse=True)
-    return jsonify(drivers)
-
-@app.route('/api/standings/teams')
-def api_teams_standings():
-    teams = sorted(f1_data['teams'], key=lambda x: x['points'], reverse=True)
-    return jsonify(teams)
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
