@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>F1 Racing Home</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="https://logodownload.org/wp-content/uploads/2016/11/formula-1-logo-5.png" alt="F1 Logo" class="f1-logo">
+        </div>
+        <nav class="main-nav">
+            <a href="/" class="active"><i class="fas fa-home"></i> Home</a>
+            <a href="/races"><i class="fas fa-flag-checkered"></i> Races</a>
+            <a href="/drivers"><i class="fas fa-user-helmet"></i> Drivers</a>
+            <a href="/teams"><i class="fas fa-users"></i> Teams</a>
+        </nav>
+        <div class="right-logo-container">
+            <img src="https://logodownload.org/wp-content/uploads/2016/11/formula-1-logo-5.png" alt="F1 Logo" class="right-f1-logo">
+        </div>
+    </header>
+
+    <!-- F1 Hero Banner -->
+    <div class="f1-hero-banner">
+        <h1 class="hero-title">FORMULA 1</h1>
+        <p class="hero-subtitle">The Pinnacle of Motorsport</p>
+    </div>
+    
+    <div class="page-box">
+        <h1>Welcome to the F1 Racing App</h1>
+        <p style="text-align:center; font-size:1.2em;">Experience the thrill of Formula 1! Explore teams, drivers, and their iconic cars.</p>
+        
+        <!-- Upcoming Race Widget -->
+        {% if next_race %}
+        <div class="upcoming-race">
+            <div class="race-countdown">
+                <h3>Next Race: {{ next_race.race.name }}</h3>
+                <div class="countdown-timer">
+                    <div class="time-unit">
+                        <span class="time">{{ next_race.days_until }}</span>
+                        <span class="label">Days</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time">08</span>
+                        <span class="label">Hours</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time">45</span>
+                        <span class="label">Minutes</span>
+                    </div>
+                </div>
+            </div>
+            <div class="circuit-preview">
+                <img src="https://www.formula1.com/content/dam/fom-website/2018-redesign-assets/Circuit%20maps%2016x9/Spain_Circuit.png.transform/7col/image.png" alt="{{ next_race.race.circuit }}" class="circuit-map">
+                <div class="circuit-info">
+                    <p><strong>{{ next_race.race.circuit }}</strong></p>
+                    <p>{{ next_race.race.location }}</p>
+                    <p>{{ next_race.race.date }}</p>
+                </div>
+            </div>
+            <a href="/races/{{ next_race.race.id }}" class="view-calendar-btn">View Race Details</a>
+        </div>
+        {% endif %}
+        
+        <!-- Fan Predictions Section -->
+        <div class="fan-predictions-section">
+            <h2>Make Your Race Predictions</h2>
+            <p class="section-intro">Join the F1 community! Share your predictions for the upcoming race and let us know your favorite team and drivers.</p>
+            
+            <form class="prediction-form" action="/submit_prediction" method="post">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="favorite_team">Your Favorite Team</label>
+                    <select id="favorite_team" name="favorite_team" required>
+                        <option value="" disabled selected>Select your favorite team</option>
+                        <option value="Ferrari">Ferrari</option>
+                        <option value="Mercedes">Mercedes</option>
+                        <option value="Red Bull Racing">Red Bull Racing</option>
+                        <option value="McLaren">McLaren</option>
+                        <option value="Aston Martin">Aston Martin</option>
+                        <option value="Alpine">Alpine</option>
+                        <option value="Williams">Williams</option>
+                        <option value="RB">RB</option>
+                        <option value="Haas">Haas</option>
+                        <option value="Kick Sauber">Kick Sauber</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="favorite_driver">Your Favorite Driver</label>
+                    <select id="favorite_driver" name="favorite_driver" required>
+                        <option value="" disabled selected>Select your favorite driver</option>
+                        <option value="Max Verstappen">Max Verstappen</option>
+                        <option value="Charles Leclerc">Charles Leclerc</option>
+                        <option value="Lewis Hamilton">Lewis Hamilton</option>
+                        <option value="Lando Norris">Lando Norris</option>
+                        <option value="Carlos Sainz">Carlos Sainz</option>
+                        <option value="George Russell">George Russell</option>
+                        <option value="Sergio Perez">Sergio Perez</option>
+                        <option value="Fernando Alonso">Fernando Alonso</option>
+                        <option value="Oscar Piastri">Oscar Piastri</option>
+                        <option value="Lance Stroll">Lance Stroll</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="race_winner">Who do you think will win the next race?</label>
+                    <select id="race_winner" name="race_winner" required>
+                        <option value="" disabled selected>Select predicted winner</option>
+                        <option value="Max Verstappen">Max Verstappen</option>
+                        <option value="Charles Leclerc">Charles Leclerc</option>
+                        <option value="Lewis Hamilton">Lewis Hamilton</option>
+                        <option value="Lando Norris">Lando Norris</option>
+                        <option value="Carlos Sainz">Carlos Sainz</option>
+                        <option value="George Russell">George Russell</option>
+                        <option value="Sergio Perez">Sergio Perez</option>
+                        <option value="Fernando Alonso">Fernando Alonso</option>
+                        <option value="Oscar Piastri">Oscar Piastri</option>
+                        <option value="Lance Stroll">Lance Stroll</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="comments">Your Comments</label>
+                    <textarea id="comments" name="comments" rows="4" placeholder="Share your thoughts about the upcoming race..."></textarea>
+                </div>
+                
+                <button type="submit" class="submit-prediction-btn">Submit Prediction</button>
+            </form>
+            
+            <div class="recent-predictions">
+                <h3>Recent Fan Predictions</h3>
+                <div class="prediction-cards">
+                    {% if user_predictions %}
+                        {% for prediction in user_predictions %}
+                        <div class="prediction-card">
+                            <div class="prediction-header">
+                                <span class="predictor-name">{{ prediction.name }}</span>
+                                <span class="prediction-date">{{ prediction.date }}</span>
+                            </div>
+                            <div class="prediction-content">
+                                <p><strong>Favorite Team:</strong> <span class="{{ prediction.team_class }}">{{ prediction.favorite_team }}</span></p>
+                                <p><strong>Favorite Driver:</strong> {{ prediction.favorite_driver }}</p>
+                                <p><strong>Predicted Winner:</strong> {{ prediction.race_winner }}</p>
+                                <p class="prediction-comment">"{{ prediction.comments }}"</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="no-predictions">
+                            <p>Be the first to share your prediction!</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Standings Section -->
+        <div class="standings-section">
+            <h2>Current Standings</h2>
+            <div class="standings-container">
+                <div class="standings-column">
+                    <h3>Driver Standings</h3>
+                    <table class="standings-table">
+                        <tr>
+                            <th>Pos</th>
+                            <th>Driver</th>
+                            <th>Points</th>
+                        </tr>
+                        {% for driver in top_drivers %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td><span class="driver-circle {{ driver.team_color }}">{{ driver.code }}</span> {{ driver.name }}</td>
+                            <td>{{ driver.points }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <a href="/standings" class="view-all-btn">View Full Standings</a>
+                </div>
+                <div class="standings-column">
+                    <h3>Constructor Standings</h3>
+                    <table class="standings-table">
+                        <tr>
+                            <th>Pos</th>
+                            <th>Team</th>
+                            <th>Points</th>
+                        </tr>
+                        {% for team in top_teams %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td><span class="team-dot {{ team.color }}"></span> {{ team.name }}</td>
+                            <td>{{ team.points }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <a href="/standings" class="view-all-btn">View Full Standings</a>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Featured Teams</h2>
+        <div class="home-teams-grid">
+            <!-- Ferrari -->
+            <div class="team-showcase">
+                <img src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/ferrari.png" alt="Ferrari" class="home-team-logo">
+                <img src="https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/ferrari.png.transform/4col/image.png" alt="Ferrari SF-24" class="home-car-img">
+                <div class="home-drivers">
+                    <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CHALEC01_Charles_Leclerc/chalec01.png.transform/1col/image.png" alt="Charles Leclerc" class="home-driver-img">
+                    <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/C/CARSAI01_Carlos_Sainz/carsai01.png.transform/1col/image.png" alt="Carlos Sainz" class="home-driver-img">
+                </div>
+                <span class="ferrari">Ferrari</span>
+            </div>
+            
+            <!-- Mercedes -->
+            <div class="team-showcase">
+                <img src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/mercedes.png" alt="Mercedes" class="home-team-logo">
+                <img src="https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/mercedes.png.transform/4col/image.png" alt="Mercedes W15" class="home-car-img">
+                <div class="home-drivers">
+                    <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LEWHAM01_Lewis_Hamilton/lewham01.png.transform/1col/image.png" alt="Lewis Hamilton" class="home-driver-img">
+                    <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/G/GEORUS01_George_Russell/georus01.png.transform/1col/image.png" alt="George Russell" class="home-driver-img">
+                </div>
+                <span class="mercedes">Mercedes</span>
+            </div>
+            
+            <!-- Red Bull -->
+            <div class="team-showcase">
+                <img src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/red%20bull.png" alt="Red Bull Racing" class="home-team-logo">
+                <img src="https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/red-bull-racing.png.transform/4col/image.png" alt="Red Bull RB20" class="home-car-img">
+                <div class="home-drivers">
+                    <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/1col/image.png" alt="Max Verstappen" class="home-driver-img">
+                    <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/S/SERPER01_Sergio_Perez/serper01.png.transform/1col/image.png" alt="Sergio Pérez" class="home-driver-img">
+                </div>
+                <span class="redbull">Red Bull Racing</span>
+            </div>
+            
+            <!-- McLaren -->
+            <div class="team-showcase">
+                <img src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/mclaren.png" alt="McLaren" class="home-team-logo">
+                <img src="https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/mclaren.png.transform/4col/image.png" alt="McLaren MCL38" class="home-car-img">
+                <div class="home-drivers">
+                    <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANNOR01_Lando_Norris/lannor01.png.transform/1col/image.png" alt="Lando Norris" class="home-driver-img">
+                    <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/O/OSCPIA01_Oscar_Piastri/oscpia01.png.transform/1col/image.png" alt="Oscar Piastri" class="home-driver-img">
+                </div>
+                <span class="mclaren">McLaren</span>
+            </div>
+            
+            <!-- Aston Martin -->
+            <div class="team-showcase">
+                <img src="https://media.formula1.com/content/dam/fom-website/2018-redesign-assets/team%20logos/aston%20martin.png" alt="Aston Martin" class="home-team-logo">
+                <img src="https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/aston-martin.png.transform/4col/image.png" alt="Aston Martin AMR24" class="home-car-img">
+                <div class="home-drivers">
+                    <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/F/FERALO01_Fernando_Alonso/feralo01.png.transform/1col/image.png" alt="Fernando Alonso" class="home-driver-img">
+                    <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/L/LANSTR01_Lance_Stroll/lanstr01.png.transform/1col/image.png" alt="Lance Stroll" class="home-driver-img">
+                </div>
+                <span class="aston">Aston Martin</span>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://logodownload.org/wp-content/uploads/2016/11/formula-1-logo-5.png" alt="F1 Logo" class="footer-f1-logo">
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Racing</h4>
+                    <a href="/races">Schedule</a>
+                    <a href="/races">Results</a>
+                    <a href="/standings">Standings</a>
+                    <a href="/drivers">Driver Stats</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Media</h4>
+                    <a href="#">Videos</a>
+                    <a href="#">Photos</a>
+                </div>
+                <div class="footer-column">
+                    <h4>About</h4>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+            </div>
+            <div class="footer-social">
+                <h4>Follow F1</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Formula 1 Racing App. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+</body>
+</html>
