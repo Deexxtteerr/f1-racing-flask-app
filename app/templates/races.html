@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>F1 Racing - Race Calendar</title>
+    <link rel="stylesheet" href="/f1-racing/static/style.css">
+    <link rel="stylesheet" href="/f1-racing/static/races.css">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="races-page">
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <a href="/f1-racing/">
+                    <img src="https://logodownload.org/wp-content/uploads/2016/11/formula-1-logo-5.png" alt="F1 Logo" class="f1-logo">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <a href="/f1-racing/">HOME</a>
+                <a href="/f1-racing/races" class="active">RACES</a>
+                <a href="/f1-racing/drivers">DRIVERS</a>
+                <a href="/f1-racing/teams">TEAMS</a>
+                <a href="/f1-racing/standings">STANDINGS</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-hero">
+        <div class="hero-content">
+            <h1>2025 Race Calendar</h1>
+            <p>Experience the thrill of Formula 1 across the globe</p>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <!-- Next Race Highlight -->
+        {% for race in upcoming_races[:1] %}
+        <div class="next-race-highlight">
+            <div class="highlight-card">
+                <div class="highlight-header">
+                    <div class="highlight-title">
+                        <span class="next-race-label">NEXT RACE</span>
+                        <h2>{{ race.name }}</h2>
+                    </div>
+                    <div class="race-round">ROUND {{ race.id }}</div>
+                </div>
+                <div class="highlight-content">
+                    <div class="race-main-info">
+                        <div class="race-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="location-details">
+                                <span class="location-label">LOCATION</span>
+                                <span class="location-value">{{ race.location }}</span>
+                            </div>
+                        </div>
+                        <div class="race-circuit">
+                            <i class="fas fa-road"></i>
+                            <div class="circuit-details">
+                                <span class="circuit-label">CIRCUIT</span>
+                                <span class="circuit-value">{{ race.circuit }}</span>
+                            </div>
+                        </div>
+                        <div class="race-date">
+                            <i class="fas fa-calendar"></i>
+                            <div class="date-details">
+                                <span class="date-label">RACE DATE</span>
+                                <span class="date-value">{{ race.date }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="countdown-section">
+                        <div class="countdown-ring">
+                            <div class="countdown-value">
+                                <span class="days-number">{{ race.days_until }}</span>
+                                <span class="days-label">DAYS TO GO</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Upcoming Races -->
+        <section class="races-section">
+            <div class="section-header">
+                <h2>Upcoming Races</h2>
+                <div class="races-count">{{ upcoming_races[1:]|length }} RACES REMAINING</div>
+            </div>
+            <div class="races-grid">
+                {% for race in upcoming_races[1:] %}
+                <div class="race-card upcoming">
+                    <div class="card-header">
+                        <div class="round-info">
+                            <span class="round-number">ROUND {{ race.id }}</span>
+                            <span class="race-status">UPCOMING</span>
+                        </div>
+                        <div class="race-date">
+                            <span class="date-value">{{ race.date }}</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>{{ race.name }}</h3>
+                        <div class="race-details">
+                            <div class="detail-item location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{ race.location }}</span>
+                            </div>
+                            <div class="detail-item circuit">
+                                <i class="fas fa-road"></i>
+                                <span>{{ race.circuit }}</span>
+                            </div>
+                        </div>
+                        <div class="race-countdown">
+                            <div class="countdown-bar">
+                                <div class="countdown-fill" style="width: {{ (1 - (race.days_until / 365)) * 100 }}%"></div>
+                            </div>
+                            <div class="countdown-text">{{ race.days_until }} DAYS TO GO</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Completed Races -->
+        <section class="races-section">
+            <div class="section-header">
+                <h2>Completed Races</h2>
+                <div class="races-count">{{ past_races|length }} RACES COMPLETED</div>
+            </div>
+            <div class="races-grid">
+                {% for race in past_races|reverse %}
+                <div class="race-card completed">
+                    <div class="card-header">
+                        <div class="round-info">
+                            <span class="round-number">ROUND {{ race.id }}</span>
+                            <span class="race-status">COMPLETED</span>
+                        </div>
+                        <div class="race-date">
+                            <span class="date-value">{{ race.date }}</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h3>{{ race.name }}</h3>
+                        <div class="race-details">
+                            <div class="detail-item location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{ race.location }}</span>
+                            </div>
+                            <div class="detail-item circuit">
+                                <i class="fas fa-road"></i>
+                                <span>{{ race.circuit }}</span>
+                            </div>
+                        </div>
+                        <div class="race-result">
+                            <div class="winner-info">
+                                <i class="fas fa-trophy"></i>
+                                <div class="winner-details">
+                                    <span class="winner-label">RACE WINNER</span>
+                                    <span class="winner-name">{{ race.winner }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>

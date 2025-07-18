@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/f1-racing/static/home.css">
+{% endblock %}
+
+{% block body_class %}home-page{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>2025 FORMULA 1 CHAMPIONSHIP</h1>
+                <p>Experience the pinnacle of motorsport</p>
+            </div>
+            {% if next_race %}
+            <div class="next-race-banner">
+                <div class="next-race-info">
+                    <div class="race-main">
+                        <span class="next-label">NEXT RACE:</span>
+                        <h2>{{ next_race.race.name }}</h2>
+                        <div class="race-meta">
+                            <span><i class="fas fa-calendar"></i> {{ next_race.race.date }}</span>
+                            <span><i class="fas fa-map-marker-alt"></i> {{ next_race.race.location }}</span>
+                        </div>
+                    </div>
+                    <div class="countdown-timer">
+                        <div class="countdown-ring">
+                            <span class="days">{{ next_race.days_until }}</span>
+                            <span class="label">DAYS TO GO</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <main class="main-content">
+        <!-- Championship Leaders -->
+        <section class="championship-leaders">
+            <div class="leaders-grid">
+                <!-- Driver Championship Leader -->
+                <div class="leader-card driver-leader">
+                    <div class="leader-header">
+                        <h2>DRIVERS CHAMPIONSHIP</h2>
+                        <span class="leader-label">CURRENT LEADER</span>
+                    </div>
+                    <div class="leader-content">
+                        <div class="leader-image">
+                            <img src="https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/2col/image.png" alt="{{ top_drivers[0].name }}">
+                        </div>
+                        <div class="leader-info">
+                            <h3>{{ top_drivers[0].name }}</h3>
+                            <p class="team {{ top_drivers[0].team_color }}">{{ top_drivers[0].team }}</p>
+                            <div class="stats">
+                                <div class="stat">
+                                    <span class="value">{{ top_drivers[0].points }}</span>
+                                    <span class="label">POINTS</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="value">{{ top_drivers[0].wins }}</span>
+                                    <span class="label">WINS</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="value">{{ top_drivers[0].podiums }}</span>
+                                    <span class="label">PODIUMS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Constructor Championship Leader -->
+                <div class="leader-card team-leader">
+                    <div class="leader-header">
+                        <h2>CONSTRUCTORS CHAMPIONSHIP</h2>
+                        <span class="leader-label">CURRENT LEADER</span>
+                    </div>
+                    <div class="leader-content">
+                        <div class="leader-image">
+                            <img src="{% if top_teams[0].name == 'Red Bull Racing' %}
+                                https://media.formula1.com/content/dam/fom-website/teams/2024/red-bull-racing.png.transform/6col/image.png
+                            {% elif top_teams[0].name == 'Ferrari' %}
+                                https://media.formula1.com/content/dam/fom-website/teams/2024/ferrari.png.transform/6col/image.png
+                            {% else %}
+                                https://media.formula1.com/content/dam/fom-website/teams/2024/mercedes.png.transform/6col/image.png
+                            {% endif %}" alt="{{ top_teams[0].name }}">
+                        </div>
+                        <div class="leader-info">
+                            <h3>{{ top_teams[0].name }}</h3>
+                            <div class="stats">
+                                <div class="stat">
+                                    <span class="value">{{ top_teams[0].points }}</span>
+                                    <span class="label">POINTS</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="value">{{ top_teams[0].wins }}</span>
+                                    <span class="label">WINS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Latest Results -->
+        <section class="latest-results">
+            <div class="section-header">
+                <h2>CHAMPIONSHIP STANDINGS</h2>
+                <a href="/f1-racing/standings" class="view-all">VIEW FULL STANDINGS</a>
+            </div>
+            <div class="results-grid">
+                <!-- Top 5 Drivers -->
+                <div class="standings-card">
+                    <h3>DRIVERS STANDINGS</h3>
+                    <div class="standings-list">
+                        {% for driver in top_drivers %}
+                        <div class="standing-item">
+                            <span class="position">{{ loop.index }}</span>
+                            <div class="driver-info">
+                                <span class="driver-number {{ driver.team_color }}">
+                                    {% if driver.code == 'VER' %}1
+                                    {% elif driver.code == 'LEC' %}16
+                                    {% elif driver.code == 'NOR' %}4
+                                    {% elif driver.code == 'HAM' %}44
+                                    {% elif driver.code == 'SAI' %}55
+                                    {% else %}{{ loop.index }}{% endif %}
+                                </span>
+                                <div class="name-team">
+                                    <span class="name">{{ driver.name }}</span>
+                                    <span class="team {{ driver.team_color }}">{{ driver.team }}</span>
+                                </div>
+                            </div>
+                            <div class="points-section">
+                                <span class="points">{{ driver.points }}</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill {{ driver.team_color }}" style="width: {{ (driver.points / top_drivers[0].points * 100)|round }}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Top 5 Teams -->
+                <div class="standings-card">
+                    <h3>CONSTRUCTORS STANDINGS</h3>
+                    <div class="standings-list">
+                        {% for team in top_teams %}
+                        <div class="standing-item">
+                            <span class="position">{{ loop.index }}</span>
+                            <div class="team-info">
+                                <span class="team-logo {{ team.color }}"></span>
+                                <span class="name">{{ team.name }}</span>
+                            </div>
+                            <div class="points-section">
+                                <span class="points">{{ team.points }}</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill {{ team.color }}" style="width: {{ (team.points / top_teams[0].points * 100)|round }}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fan Predictions -->
+        {% if user_predictions %}
+        <section class="fan-predictions">
+            <div class="section-header">
+                <h2>FAN PREDICTIONS</h2>
+            </div>
+            <div class="predictions-grid">
+                {% for prediction in user_predictions %}
+                <div class="prediction-card">
+                    <div class="prediction-header">
+                        <span class="fan-name">{{ prediction.name }}</span>
+                        <span class="prediction-date">{{ prediction.date }}</span>
+                    </div>
+                    <div class="prediction-content">
+                        <div class="prediction-item">
+                            <span class="label">Favorite Team</span>
+                            <span class="value {{ prediction.team_class }}">{{ prediction.favorite_team }}</span>
+                        </div>
+                        <div class="prediction-item">
+                            <span class="label">Favorite Driver</span>
+                            <span class="value">{{ prediction.favorite_driver }}</span>
+                        </div>
+                        <div class="prediction-item">
+                            <span class="label">Race Winner Pick</span>
+                            <span class="value">{{ prediction.race_winner }}</span>
+                        </div>
+                        {% if prediction.comments %}
+                        <div class="prediction-comments">
+                            "{{ prediction.comments }}"
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+    </main>
+{% endblock %}

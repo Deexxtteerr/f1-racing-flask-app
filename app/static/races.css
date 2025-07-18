@@ -1,0 +1,317 @@
+/* Races Page Specific Styles */
+.races-page .page-hero {
+    height: 400px;
+    margin-top: 80px;
+}
+
+/* Next Race Highlight */
+.next-race-highlight {
+    margin: -150px auto 60px;
+    max-width: 1200px;
+    padding: 0 40px;
+    position: relative;
+    z-index: 10;
+}
+
+.highlight-card {
+    background: var(--f1-gray);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(225, 6, 0, 0.2);
+}
+
+.highlight-header {
+    background: var(--f1-red);
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.highlight-title {
+    text-align: left;
+}
+
+.next-race-label {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+.highlight-title h2 {
+    font-size: 32px;
+    margin-top: 5px;
+}
+
+.race-round {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+}
+
+.highlight-content {
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: center;
+}
+
+.race-main-info {
+    display: grid;
+    gap: 25px;
+}
+
+.race-location,
+.race-circuit,
+.race-date {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.race-location i,
+.race-circuit i,
+.race-date i {
+    font-size: 24px;
+    color: var(--f1-red);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(225, 6, 0, 0.1);
+    border-radius: 50%;
+}
+
+.location-details,
+.circuit-details,
+.date-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.location-label,
+.circuit-label,
+.date-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 4px;
+}
+
+.location-value,
+.circuit-value,
+.date-value {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.countdown-section {
+    text-align: center;
+}
+
+.countdown-ring {
+    width: 160px;
+    height: 160px;
+    border: 4px solid var(--f1-red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(225, 6, 0, 0.1);
+}
+
+.countdown-value {
+    text-align: center;
+}
+
+.days-number {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--f1-red);
+    display: block;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.days-label {
+    font-size: 14px;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+/* Races Grid */
+.races-section {
+    margin-bottom: 60px;
+    padding: 0 40px;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.section-header h2 {
+    font-size: 28px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.section-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--f1-red);
+}
+
+.races-count {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--f1-red);
+    letter-spacing: 1px;
+}
+
+.races-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.race-card {
+    background: var(--f1-gray);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.race-card:hover {
+    transform: translateY(-10px);
+}
+
+.race-card .card-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.round-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.round-number {
+    font-weight: 600;
+    color: var(--f1-red);
+}
+
+.race-status {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.race-card .card-content {
+    padding: 25px;
+}
+
+.race-card h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.race-details {
+    display: grid;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.detail-item i {
+    color: var(--f1-red);
+    width: 20px;
+    text-align: center;
+}
+
+.race-countdown {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.countdown-bar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.countdown-fill {
+    height: 100%;
+    background: var(--f1-red);
+    border-radius: 2px;
+    transition: width 1s ease;
+}
+
+.countdown-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--f1-red);
+}
+
+.race-result {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.winner-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.winner-info i {
+    color: var(--f1-accent);
+    font-size: 24px;
+}
+
+.winner-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.winner-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+.winner-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--f1-accent);
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>F1 Racing - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/f1-racing/static/style.css">
+    <link rel="stylesheet" href="/f1-racing/static/footer.css">
+    {% block extra_css %}{% endblock %}
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <a href="/f1-racing/">
+                    <img src="https://logodownload.org/wp-content/uploads/2016/11/formula-1-logo-5.png" alt="F1 Logo" class="f1-logo">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <a href="/f1-racing/" {% if request.path == '/f1-racing/' %}class="active"{% endif %}>HOME</a>
+                <a href="/f1-racing/races" {% if request.path == '/f1-racing/races' %}class="active"{% endif %}>RACES</a>
+                <a href="/f1-racing/drivers" {% if request.path == '/f1-racing/drivers' %}class="active"{% endif %}>DRIVERS</a>
+                <a href="/f1-racing/teams" {% if request.path == '/f1-racing/teams' %}class="active"{% endif %}>TEAMS</a>
+                <a href="/f1-racing/standings" {% if request.path == '/f1-racing/standings' %}class="active"{% endif %}>STANDINGS</a>
+            </nav>
+        </div>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    {% include 'footer.html' %}
+</body>
+</html>

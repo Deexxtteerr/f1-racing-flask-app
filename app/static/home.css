@@ -1,0 +1,454 @@
+/* Home Page Specific Styles */
+.home-page .hero-section {
+    height: 600px;
+    margin-top: 80px;
+    background: linear-gradient(rgba(10, 10, 18, 0.7), rgba(10, 10, 18, 0.9)),
+                url('https://www.formula1.com/content/dam/fom-website/manual/Misc/2024manual/2024Launches/SF-24Launch/Ferrari_SF-24_Front_34.jpg.transform/9col/image.jpg') center/cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-text h1 {
+    font-size: 56px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-text p {
+    font-size: 20px;
+    opacity: 0.9;
+    margin-bottom: 40px;
+}
+
+/* Next Race Banner */
+.next-race-banner {
+    background: rgba(10, 10, 18, 0.9);
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid rgba(225, 6, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    margin-top: 40px;
+}
+
+.next-race-info {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    padding: 30px;
+    align-items: center;
+}
+
+.next-label {
+    color: var(--f1-red);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.race-main h2 {
+    font-size: 32px;
+    margin: 10px 0;
+}
+
+.race-meta {
+    display: flex;
+    gap: 20px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.race-meta span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.countdown-ring {
+    width: 120px;
+    height: 120px;
+    border: 4px solid var(--f1-red);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(225, 6, 0, 0.1);
+}
+
+.countdown-ring .days {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--f1-red);
+    line-height: 1;
+}
+
+.countdown-ring .label {
+    font-size: 12px;
+    opacity: 0.9;
+    margin-top: 5px;
+}
+
+/* Championship Leaders */
+.championship-leaders {
+    margin: -100px auto 60px;
+    max-width: 1400px;
+    padding: 0 40px;
+    position: relative;
+    z-index: 10;
+}
+
+.leaders-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
+.leader-card {
+    background: var(--f1-gray);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(225, 6, 0, 0.2);
+}
+
+.leader-header {
+    background: var(--f1-red);
+    padding: 20px;
+    text-align: center;
+}
+
+.leader-header h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.leader-label {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.leader-content {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 30px;
+    padding: 30px;
+    align-items: center;
+}
+
+.leader-image {
+    width: 200px;
+    height: 200px;
+    background: var(--f1-darker);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.leader-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.leader-info h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stat {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stat .value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--f1-red);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.stat .label {
+    font-size: 12px;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+/* Latest Results */
+.latest-results {
+    padding: 0 40px;
+    margin-bottom: 60px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.section-header h2 {
+    font-size: 28px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.section-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--f1-red);
+}
+
+.view-all {
+    color: var(--f1-red);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 1px;
+    transition: opacity 0.3s;
+}
+
+.view-all:hover {
+    opacity: 0.8;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.standings-card {
+    background: var(--f1-gray);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.standings-card h3 {
+    background: var(--f1-darker);
+    padding: 20px;
+    font-size: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.standings-list {
+    padding: 20px;
+}
+
+.standing-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 20px;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.standing-item:last-child {
+    border-bottom: none;
+}
+
+.position {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--f1-red);
+}
+
+.driver-info,
+.team-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.driver-number {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.name-team {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-weight: 600;
+}
+
+.team {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.points-section {
+    text-align: right;
+    min-width: 120px;
+}
+
+.points {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.progress-bar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease;
+}
+
+/* Fan Predictions */
+.fan-predictions {
+    padding: 0 40px;
+    margin-bottom: 60px;
+}
+
+.predictions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.prediction-card {
+    background: var(--f1-gray);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.prediction-header {
+    background: var(--f1-darker);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fan-name {
+    font-weight: 600;
+}
+
+.prediction-date {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.prediction-content {
+    padding: 20px;
+}
+
+.prediction-item {
+    margin-bottom: 15px;
+}
+
+.prediction-item .label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 5px;
+}
+
+.prediction-item .value {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.prediction-comments {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .hero-text h1 {
+        font-size: 42px;
+    }
+    
+    .leaders-grid,
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .leader-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .leader-image {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-text h1 {
+        font-size: 32px;
+    }
+    
+    .next-race-info {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .countdown-ring {
+        margin: 0 auto;
+    }
+    
+    .predictions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats {
+        grid-template-columns: 1fr;
+    }
+}

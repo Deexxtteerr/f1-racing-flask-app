@@ -1,0 +1,262 @@
+/* F1 Premium Theme */
+:root {
+    --f1-red: #e10600;
+    --f1-dark: #15151e;
+    --f1-darker: #0a0a12;
+    --f1-black: #000000;
+    --f1-white: #ffffff;
+    --f1-gray: #1e1e26;
+    --f1-accent: #f0b418;
+}
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+body {
+    background: var(--f1-darker);
+    color: var(--f1-white);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Header - Global */
+.main-header {
+    background: rgba(10, 10, 18, 0.95);
+    backdrop-filter: blur(10px);
+    height: 80px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(225, 6, 0, 0.2);
+}
+
+.header-content {
+    max-width: 1600px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.logo-section {
+    width: 200px;
+}
+
+.f1-logo {
+    height: 35px;
+}
+
+.main-nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+}
+
+.main-nav a {
+    color: var(--f1-white);
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+    color: var(--f1-red);
+    background: rgba(225, 6, 0, 0.1);
+}
+
+/* Main Content Layout */
+.main-content {
+    margin-top: 80px;
+    padding: 0;
+    min-height: calc(100vh - 80px);
+}
+
+/* Page Hero */
+.page-hero {
+    height: 400px;
+    background: linear-gradient(rgba(10, 10, 18, 0.8), rgba(10, 10, 18, 0.9)),
+                url('https://www.formula1.com/content/dam/fom-website/manual/Misc/2024manual/2024Launches/SF-24Launch/Ferrari_SF-24_Front_34.jpg.transform/9col/image.jpg') center/cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    padding: 0 40px;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Grid Layouts */
+.grid-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 40px;
+    display: grid;
+    gap: 40px;
+}
+
+/* Section Headers */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.section-header h2 {
+    font-size: 32px;
+    position: relative;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.section-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--f1-red);
+}
+
+/* Cards Base Style */
+.card {
+    background: var(--f1-gray);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+/* Team Colors */
+.ferrari { background: linear-gradient(135deg, #DC0000, #990000) !important; }
+.mercedes { background: linear-gradient(135deg, #00D2BE, #009688) !important; }
+.redbull { background: linear-gradient(135deg, #0600EF, #040099) !important; }
+.mclaren { background: linear-gradient(135deg, #FF8700, #CC6D00) !important; }
+.aston { background: linear-gradient(135deg, #006F62, #004C43) !important; }
+.alpine { background: linear-gradient(135deg, #0090FF, #0066B3) !important; }
+.williams { background: linear-gradient(135deg, #005AFF, #003DAD) !important; }
+.rb { background: linear-gradient(135deg, #1E41FF, #1432CC) !important; }
+
+/* Stats Display */
+.stat {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--f1-red);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+/* Performance Bars */
+.performance-bar {
+    margin-bottom: 15px;
+}
+
+.bar-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.bar-container {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.bar {
+    height: 100%;
+    background: var(--f1-red);
+    border-radius: 3px;
+    transition: width 1s ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--f1-darker);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--f1-red);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #990000;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .grid-container {
+        padding: 20px;
+    }
+    
+    .main-nav {
+        gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-nav {
+        display: none;
+    }
+    
+    .hero-content h1 {
+        font-size: 32px;
+    }
+    
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+}

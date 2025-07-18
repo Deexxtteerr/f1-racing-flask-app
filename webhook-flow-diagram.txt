@@ -1,0 +1,54 @@
++------------------+       Webhook        +------------------+
+|                  |  Event (push/PR)   |                  |
+|  GitHub Repo     +------------------>+|  Jenkins Server  |
+|  python-flask-app|                    |                  |
++------------------+                    +--------+---------+
+                                                 |
+                                                 | Triggers Pipeline
+                                                 v
+                                        +------------------+
+                                        |                  |
+                                        |  Jenkins Pipeline|
+                                        |  (Jenkinsfile)   |
+                                        |                  |
+                                        +--------+---------+
+                                                 |
+                                                 | Stages
+                                                 v
+                    +-----------------------------------------------+
+                    |                                               |
+                    |  +-------------+  +-------------+  +--------+ |
+                    |  | Checkout    |  | Build &     |  | Deploy | |
+                    |  | Source Code +->| Test        +->|        | |
+                    |  |             |  |             |  |        | |
+                    |  +-------------+  +-------------+  +--------+ |
+                    |                                               |
+                    +-----------------------------------------------+
+                                                 |
+                                                 | SSH/SCP
+                                                 v
+                                        +------------------+
+                                        |                  |
+                                        |  App Server      |
+                                        |  (EC2 Instance)  |
+                                        |                  |
+                                        +------------------+
+                                                 |
+                                                 | Docker Run
+                                                 v
+                                        +------------------+
+                                        |                  |
+                                        |  Docker Container|
+                                        |  Python Flask App|
+                                        |                  |
+                                        +------------------+
+
+Webhook Flow:
+
+1. Developer pushes code to GitHub repository
+2. GitHub sends webhook event to Jenkins server
+3. Jenkins triggers the pipeline defined in Jenkinsfile
+4. Pipeline checks out code, builds, tests, and creates Docker image
+5. Pipeline deploys to application server via SSH
+6. Application server runs Docker container with the Flask app
+7. Users can access the deployed application

@@ -1,0 +1,91 @@
+<!-- Prediction and Review Form Section -->
+<section class="prediction-form-section">
+    <div class="form-container">
+        <h2>SHARE YOUR THOUGHTS</h2>
+        <form action="/f1-racing/submit_prediction" method="POST" class="prediction-form">
+            <!-- Personal Information -->
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="name">Your Name*</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address*</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Enter 10-digit phone number">
+                </div>
+
+                <!-- Predictions Section -->
+                {% if page_type == 'drivers' %}
+                <div class="form-group">
+                    <label for="favorite_driver">Favorite Driver*</label>
+                    <select id="favorite_driver" name="favorite_driver" required>
+                        <option value="">Select a Driver</option>
+                        {% for driver in drivers %}
+                        <option value="{{ driver.name }}">{{ driver.name }} ({{ driver.team }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="predicted_position">Predicted Championship Position</label>
+                    <select id="predicted_position" name="predicted_position">
+                        <option value="">Select Position</option>
+                        {% for i in range(1, drivers|length + 1) %}
+                        <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+
+                {% if page_type == 'teams' %}
+                <div class="form-group">
+                    <label for="favorite_team">Favorite Team*</label>
+                    <select id="favorite_team" name="favorite_team" required>
+                        <option value="">Select a Team</option>
+                        {% for team in teams %}
+                        <option value="{{ team.name }}">{{ team.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="predicted_position">Predicted Constructor Position</label>
+                    <select id="predicted_position" name="predicted_position">
+                        <option value="">Select Position</option>
+                        {% for i in range(1, teams|length + 1) %}
+                        <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% endif %}
+
+                <!-- Rating Section -->
+                <div class="form-group">
+                    <label for="rating">Rating</label>
+                    <div class="rating-stars">
+                        <input type="radio" id="star5" name="rating" value="5">
+                        <label for="star5" title="5 stars">★</label>
+                        <input type="radio" id="star4" name="rating" value="4">
+                        <label for="star4" title="4 stars">★</label>
+                        <input type="radio" id="star3" name="rating" value="3">
+                        <label for="star3" title="3 stars">★</label>
+                        <input type="radio" id="star2" name="rating" value="2">
+                        <label for="star2" title="2 stars">★</label>
+                        <input type="radio" id="star1" name="rating" value="1">
+                        <label for="star1" title="1 star">★</label>
+                    </div>
+                </div>
+
+                <!-- Comments Section -->
+                <div class="form-group full-width">
+                    <label for="comments">Your Review & Comments</label>
+                    <textarea id="comments" name="comments" rows="4" placeholder="Share your thoughts, predictions, and feedback..."></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</section>
